@@ -41,12 +41,14 @@ module OpenFlashChart
       # NOTE: users should put this in the <head> section themselves:
       ## <script type="text/javascript" src="#{base}/javascripts/swfobject.js"></script>
 
-      <<-HTML
+      str = <<-HTML
       <div id="#{div_name}"></div>
       <script type="text/javascript">
         swfobject.embedSWF("#{base}#{swf_file_name}", "#{div_name}", "#{width}", "#{height}", "9.0.0", "expressInstall.swf",{"data-file":"#{url}"});
       </script>
       HTML
+      # make sure string is not escaped in rails 3
+      str.respond_to?(:html_safe) ? str.html_safe : str
     end
   end
 
